@@ -4,7 +4,7 @@ const server = require('../lib/server');
 const superagent = require('superagent');
 
 const testPort = 5000;
-const mockResource = { title: 'test title', content: 'test content' };
+const mockResource = { title: 'Steak', content: 'steak and eggs' };
 let mockId = null;
 
 beforeAll(() => server.start(testPort));
@@ -20,6 +20,25 @@ describe('VALID request to the API', () => {
           expect(res.body.title).toEqual(mockResource.title);
           expect(res.body.content).toEqual(mockResource.content);
           expect(res.status).toEqual(201);
+        });
+    });
+  });
+  describe('GET /api/v1/food?id=id', () => {
+    test('should retrieve previous POST', () => {
+      return superagent.get(`:${testPort}/api/v1/food?id=${mockId}`)
+        .then((res) => {
+          expect(res.body.title).toEqual(mockResource.title);
+          expect(res.body.content).toEqual(mockResource.content);
+          expect(res.status).toEqual(200);
+        });
+    });
+  });
+  describe('GET /api/v1/food', () => {
+    test('should retrieve all food', () => {
+      return superagent.get(`:${testPort}/api/v1/food`)
+        .then((res) => {
+          expect(res.body).toEqual([mockId]);
+          expect(res.status).toEqual(200);
         });
     });
   });
