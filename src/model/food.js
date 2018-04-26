@@ -9,6 +9,6 @@ module.exports = class {
     this.title = title;
     this.content = content;
     this.id = uuid();
-    logger.log(logger.INFO, `Food: created a new food ${JSON.stringify(this)}`);
+    logger.log(logger.INFO, `FOOD: created a new food ${JSON.stringify(this)}`);
   }
 };
