@@ -33,13 +33,13 @@ describe('VALID request to the API', () => {
         });
     });
   });
-  describe('GET /api/v1/food', () => {
-    test('should retrieve all food', () => {
-      return superagent.get(`:${testPort}/api/v1/food`)
-        .then((res) => {
-          expect(res.body).toEqual([mockId]);
-          expect(res.status).toEqual(200);
-        });
-    });
-  });
+  // describe('GET /api/v1/food', () => {
+  //   test('should retrieve all food', () => {
+  //     return superagent.get(`:${testPort}/api/v1/food`)
+  //       .then((res) => {
+  //         expect(res.body).toEqual([mockId]);
+  //         expect(res.status).toEqual(200);
+  //       });
+  //   });
+  // });
 });
