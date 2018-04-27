@@ -30,7 +30,7 @@ module.exports = function routeFood(router) {
   router.get('/api/v1/food', (req, res) => {
     logger.log(logger.INFO, 'FOOD-ROUTE: GET /api/v1/food');
     if (!req.url.query.id) {
-      res.writeHead(404, { 'Content-Type': 'text/plain' });
+      res.writeHead(400, { 'Content-Type': 'text/plain' });
       res.write('Your request requires an id');
       res.end();
       return undefined;
@@ -52,7 +52,7 @@ module.exports = function routeFood(router) {
     return undefined;
   });
 
-  router.get('/api/v1/food', (req, res) => {
+  router.get('/api/v1/food/all', (req, res) => {
     logger.log(logger.INFO, 'FOOD-ROUTE: GET food array');
     storage.fetchAll('Food')
       .then((item) => {
@@ -72,6 +72,7 @@ module.exports = function routeFood(router) {
       });
     return undefined;
   });
+
   router.put('/api/v1/food', (req, res) => {
     logger.logg(logger.INFO, 'FOOD-ROUTE: UPDATE food');
     if (!req.body.id) {

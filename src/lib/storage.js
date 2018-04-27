@@ -52,6 +52,15 @@ storage.update = function update(schema, id, title, content) {
   });
 };
 
-storage.delete = function del() {
-
+storage.delete = function del(schema, id) {
+  return new Promise((resolve, reject) => {
+    if (!schema) return reject(new Error('expected a schema name'));
+    if (!id) return reject(new Error('expected an id'));
+    if (!memory[schema]) return reject(new Error('schema was not found'));
+    if (!memory[schema][id]) {
+      return reject(new Error('item was not found'));
+    }
+    delete memory[schema][id];
+    return resolve(undefined);
+  });
 };
