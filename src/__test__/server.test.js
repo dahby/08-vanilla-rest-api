@@ -5,7 +5,7 @@ const superagent = require('superagent');
 
 const testPort = 5000;
 const mockResource = { title: 'Steak', content: 'steak and eggs' };
-// const mockFail = { title: '', content: '' };
+const mockFail = { title: '', content: '' };
 let mockId = null;
 
 beforeAll(() => server.start(testPort));
@@ -23,13 +23,15 @@ describe('VALID request to the API', () => {
           expect(res.status).toEqual(201);
         });
     });
-    // test('failed post should respond with a 400', () => {
-    //   return superagent.post(`:${testPort}/api/v1/food`)
-    //     .then((res) => {
-    //       console.log(res.status);
-    //       expect(res.status).toEqual(400);
-    //     });
-    // });
+    test('failed post should respond with a 400', () => {
+      return superagent.post(`:${testPort}/api/v1/food`)
+        .send(mockFail)
+        .then(() => {})
+        .catch((err) => {
+          expect(err).toBeTruthy();
+          expect(err.status).toEqual(400);
+        });
+    });
   });
   describe('GET /api/v1/food?id=id', () => {
     test('should retrieve previous POST', () => {
@@ -58,12 +60,3 @@ describe('VALID request to the API', () => {
     });
   });
 });
-//   describe('GET /api/v1/food', () => {
-//     test('should retrieve all food', () => {
-//       return superagent.get(`:${testPort}/api/v1/food`)
-//         .then((res) => {
-//           expect(res.body).toEqual([mockId]);
-//           expect(res.status).toEqual(200);
-//         });
-//     });
-//   });
